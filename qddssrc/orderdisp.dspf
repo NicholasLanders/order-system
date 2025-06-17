@@ -1,0 +1,40 @@
+      * This is overall display file attributes
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      CA03
+      * This is the subfile definition, aka the fields to display
+     A          R SFL01                     SFL
+     A            USEROPT        1A  I 04 05
+     A            ORDERID        5A    04 08
+     A            CUSTID         5A    04 16
+     A            ITEMNAME      20A    04 23
+     A            QUANTITY      05Y 0  04 43
+     A            STATUS        20A    04 52
+      * This is the subfile control definition. Controls things like
+      * when to clear it, when to display and defines the subfile
+      * size and how many record to display.
+     A          R CTL01                     SFLCTL(SFL01)
+     A                                      OVERLAY
+     A                                      SFLPAG(18)
+     A                                      SFLSIZ(9999)
+     A  30                                  SFLCLR
+     A N30                                  SFLDSP
+     A N30                                  SFLDSPCTL
+     A N30                                  SFLEND(*MORE)
+     A                                  1 25'Customer Orders'
+     A                                      DSPATR(HI)
+     A                                  3 04'OPT'
+     A                                      DSPATR(UL)
+     A                                  3 08'Order#'
+     A                                      DSPATR(UL)
+     A                                  3 16'Cust#'
+     A                                      DSPATR(UL)
+     A                                  3 23'Item Name'
+     A                                      DSPATR(UL)
+     A                                  3 42'Quantity'
+     A                                      DSPATR(UL)
+     A                                  3 52'Status'
+     A                                      DSPATR(UL)
+      * This is the footer of the screen - showing the F key options
+     A          R FOOT01
+     A                                 23 02'F3=Exit'
+     A                                      COLOR(BLU)
