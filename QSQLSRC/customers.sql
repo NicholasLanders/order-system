@@ -2,8 +2,8 @@
 create or replace table
     customers (
         custid char(5),
-        name varchar(20),
-        city varchar(20),
-        province varchar(10),
+        name char(20),
+        city char(20),
+        province char(10),
         primary key (custid)
     ) rcdfmt customersf
