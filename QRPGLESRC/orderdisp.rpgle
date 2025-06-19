@@ -9,23 +9,28 @@ dcl-proc mainProc;
 
     dcl-s RRN01 int(5) inz(0);
 
+    // Subfile Data structures
+    dcl-ds ctl01DS likerec(CTL01:*output);
+    dcl-ds sfl01DS likerec(SFL01:*output);
+    dcl-ds foot01DS likerec(FOOT01:*output);
+
     dcl-ds ordersDS likerec(ORDERSF);
 
     // This refers to the indicators in the display file, you will notice the clear
     // requires that the 30 indicator be on. So this
     *in30 = *on;
-    write CTL01;
+    write CTL01 ctl01DS;
     *in30 = *off;
 
     setll *start orders;
     dou RRN01 = 9999;
-        read orders;
+        read orders ordersDS;
 
         if %eof(orders);
             leave;
         endif;
         RRN01 += 1;
-        write SFL01;
+        write SFL01 sfl01DS;
     enddo;
 
     if RRN01 > 0;
@@ -34,10 +39,11 @@ dcl-proc mainProc;
     endif;
 
     *in33 = *on;
-    write FOOT01;
+    write FOOT01 foot01DS;
 
-    dou *in03;
-        exfmt CTL01;
+    // TODO: Why does this work? 
+    dou *in(03);
+        exfmt CTL01 ctl01DS;
     enddo;
 
 

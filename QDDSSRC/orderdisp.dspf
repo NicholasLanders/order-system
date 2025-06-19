@@ -1,7 +1,7 @@
       * This is overall display file attributes in which the second comment
       * is speaking to looking for the f3 button and receving the input
      A                                      DSPSIZ(24 80 *DS3)
-     A  03                                  CA03
+     A                                      CA03
       * This is the subfile definition, aka the fields to display
      A          R SFL01                     SFL
      A            USEROPT        1A  I 04 05
