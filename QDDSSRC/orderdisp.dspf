@@ -1,14 +1,13 @@
       * This is overall display file attributes in which the second comment
       * is speaking to looking for the f3 button and receving the input
      A                                      DSPSIZ(24 80 *DS3)
-     A                                      CA03
       * This is the subfile definition, aka the fields to display
      A          R SFL01                     SFL
      A            USEROPT        1A  I 04 05
      A            ORDERID        5A    04 08
      A            CUSTID         5A    04 16
      A            ITEMNAME      20A    04 23
-     A            QUANTITY      05Y 0  04 43
+     A            QUANTITY      05Y 0  04 44
      A            STATUS        20A    04 52
       * This is the subfile control definition. Controls things like
       * when to clear it, when to display and defines the subfile
@@ -21,6 +20,7 @@
      A  31                                  SFLDSP
      A  32                                  SFLDSPCTL
      A  33                                  SFLEND(*MORE)
+     A                                      CA03(03)
      A                                  1 25'Customer Orders'
      A                                      DSPATR(HI)
      A                                  3 04'OPT'
