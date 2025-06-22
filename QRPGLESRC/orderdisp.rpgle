@@ -1,6 +1,6 @@
 **FREE
 
-ctl-opt Main(mainProc) option(*nodebugio:*srcstmt:*nounref);
+ctl-opt Main(mainProc) option(*nodebugio:*srcstmt:*nounref) dftactgrp(*no);
 
 
 dcl-proc mainProc;
@@ -11,7 +11,7 @@ dcl-proc mainProc;
 
     // Subfile Data structures
     dcl-ds ctl01DS likerec(CTL01:*all);
-    dcl-ds sfl01DS likerec(SFL01:*output);
+    dcl-ds sfl01DS likerec(SFL01:*all);
     dcl-ds foot01DS likerec(FOOT01:*output);
 
     dcl-ds ordersDS likerec(ORDERSF);
@@ -47,10 +47,26 @@ dcl-proc mainProc;
     ctl01DS.in33 = *on;
     write FOOT01 foot01DS;
 
+    // The actual running of the program
     dou ctl01DS.in03 = *on;
         exfmt CTL01 ctl01DS;
+
+        readc SFL01 sfl01DS;
+        dow not %eof(orderdisp);
+            if sfl01DS.USEROPT = '2';
+                editOrder(sfl01DS.ORDERID);
+            endif;
+            readc SFL01 sfl01DS;
+        enddo;
     enddo;
 
 
     return;
+end-proc;
+
+dcl-proc editOrder;
+    dcl-pi *n;
+        orderNum char(5);
+    end-pi;
+
 end-proc;
