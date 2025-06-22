@@ -39,12 +39,14 @@ dcl-proc mainProc;
         write SFL01 sfl01DS;
     enddo;
 
+    // Subfile display and subfile end indicator
     if RRN01 > 0;
         ctl01DS.in31 = *on;
-        ctl01DS.in32 = *on;
+        ctl01DS.in33 = *on;
     endif;
 
-    ctl01DS.in33 = *on;
+    // Subfile display control comes on either way
+    ctl01DS.in32 = *on;
     write FOOT01 foot01DS;
 
     // The actual running of the program

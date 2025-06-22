@@ -39,3 +39,7 @@
      A          R FOOT01
      A                                 23 02'F3=Exit'
      A                                      COLOR(BLU)
+
+     A          R WIN01
+     A                                      WINDOW(10 20 8 40)
+     A                                      CA03(03)
