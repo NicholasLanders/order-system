@@ -64,9 +64,12 @@ dcl-proc mainProc;
     return;
 end-proc;
 
+// TODO: Want to use sql in this 
 dcl-proc editOrder;
     dcl-pi *n;
         orderNum char(5);
     end-pi;
+
+
 
 end-proc;
