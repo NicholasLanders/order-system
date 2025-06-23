@@ -72,6 +72,18 @@ dcl-proc editOrder;
         orderNum char(5);
     end-pi;
 
+    dcl-f orderdisp workstn sfile(EDITREC:RRN01);
+    
 
+    dcl-ds editrecDS likerec(EDITREC:*all);
 
+    dcl-s RRN01 int(5) inz(0);
+
+    editrecDS.ORDERID = orderNum;
+
+    dou editrecDS.in03;
+        write EDITREC editrecDS;
+    enddo;
+
+    return;
 end-proc;

@@ -40,6 +40,30 @@
      A                                 23 02'F3=Exit'
      A                                      COLOR(BLU)
 
+      * For editing the record
      A          R WIN01
-     A                                      WINDOW(10 20 8 40)
+     A                                      WINDOW(08 20 12 40)
+
+     A          R EDITREC 
+     A                                      OVERLAY
+     A                                      WINDOW(WIN01)
      A                                      CA03(03)
+     A                                      CF09(09)
+     A                                 01 02'Edit Order'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                 01 28'Order#:'
+     A            ORDERID        5A    01 35
+     A                                 02 02'Update the desired field/s.'
+     A                                 04 02'Item Name:'
+     A                                 06 02'Quantity:'
+     A                                 08 02'Status:'
+     A            ITEMNAME      20A  I 04 12
+     A            QUANTITY      05Y 0I 06 12
+     A            STATUS        20A  I 08 12
+     A                                 11 01'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 11 31'F9=Confirm'
+     A                                      COLOR(RED)
+      * For adding a record
+
