@@ -21,9 +21,11 @@
      A  32                                  SFLDSPCTL
      A  33                                  SFLEND(*MORE)
      A                                      CA03(03)
-      * TODO: Add option instructions
+
      A                                  1 25'Customer Orders'
      A                                      DSPATR(HI)
+     A                                  2 04'Type options, press Enter: 2=EDIT'
+     A                                      COLOR(TRQ)
      A                                  3 04'OPT'
      A                                      DSPATR(UL)
      A                                  3 08'Order#'
