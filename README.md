@@ -1,5 +1,5 @@
-This project was to practice with display and subfiles in the ibm i system. I created an order system in which a user can come on, 
-look at the existing orders and make any changes needed. It will then update the necessary tables. 
+This project was built to practice using display files and subfiles on the IBM i system. It simulates an order management system where a user can view existing orders, 
+make edits, and update the corresponding database tables accordingly.
 
 Project covered the following concepts: 
 
