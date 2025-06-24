@@ -60,6 +60,8 @@ dcl-proc mainProc;
             endif;
             readc SFL01 sfl01DS;
         enddo;
+
+        
     enddo;
 
 
@@ -72,17 +74,40 @@ dcl-proc editOrder;
         orderNum char(5);
     end-pi;
 
-    dcl-f orderdisp workstn sfile(EDITREC:RRN01);
+    dcl-f orderdisp workstn;
     
-
     dcl-ds editrecDS likerec(EDITREC:*all);
+    dcl-ds win01DS likerec(WIN01:*all);
 
-    dcl-s RRN01 int(5) inz(0);
+    dcl-s itemName char(20);
+    dcl-s quantity int(5);
+    dcl-s status char(20); 
 
     editrecDS.ORDERID = orderNum;
 
+    write WIN01 win01DS;
+
     dou editrecDS.in03;
-        write EDITREC editrecDS;
+        exfmt EDITREC editrecDS;
+
+        if editrecDS.in09;
+            itemName = %trim(editrecDS.itemName);
+            quantity = editrecDS.quantity;
+            status = %trim(editrecDS.status);
+
+            exec sql    
+            update orders
+            set
+                itemname = case when :itemName <> '' then :itemName else itemname end,
+                quantity = case when :quantity <> 0 then :quantity else quantity end,
+                status = case when :status <> '' then :status else status end
+            where orderid = :orderNum;
+            
+            // Checks for errors if needed. 
+            // if sqlcode <> 0;
+            // dsply ('SQL Error:' + %char(sqlcode));
+            // endif;
+        endif;
     enddo;
 
     return;

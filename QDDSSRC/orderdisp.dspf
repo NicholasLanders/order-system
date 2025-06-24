@@ -21,6 +21,7 @@
      A  32                                  SFLDSPCTL
      A  33                                  SFLEND(*MORE)
      A                                      CA03(03)
+      * TODO: Add option instructions
      A                                  1 25'Customer Orders'
      A                                      DSPATR(HI)
      A                                  3 04'OPT'
@@ -53,12 +54,12 @@
      A                                      DSPATR(HI)
      A                                      DSPATR(UL)
      A                                 01 28'Order#:'
-     A            ORDERID        5A    01 35
+     A            ORDERID        5A    01 36
      A                                 02 02'Update the desired field/s.'
      A                                 04 02'Item Name:'
      A                                 06 02'Quantity:'
      A                                 08 02'Status:'
-     A            ITEMNAME      20A  I 04 12
+     A            ITEMNAME      20A  I 04 13
      A            QUANTITY      05Y 0I 06 12
      A            STATUS        20A  I 08 12
      A                                 11 01'F3=Exit'
