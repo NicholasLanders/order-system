@@ -2,19 +2,41 @@
 
 ctl-opt Main(mainProc) option(*nodebugio:*srcstmt:*nounref) dftactgrp(*no);
 
+dcl-f orderdisp workstn sfile(SFL01:RRN01);
+dcl-f orders usage(*input) keyed;
+
+dcl-s RRN01 int(5) inz(0);
+
+// Subfile Data structures
+dcl-ds ctl01DS likerec(CTL01:*all);
+dcl-ds sfl01DS likerec(SFL01:*all);
 
 dcl-proc mainProc;
-    dcl-f orderdisp workstn sfile(SFL01:RRN01);
-    dcl-f orders usage(*input) keyed;
 
-    dcl-s RRN01 int(5) inz(0);
+    loadSubfile();
+    
+    // The actual running of the program
+    dou ctl01DS.in03 = *on;
+        exfmt CTL01 ctl01DS;
 
-    // Subfile Data structures
-    dcl-ds ctl01DS likerec(CTL01:*all);
-    dcl-ds sfl01DS likerec(SFL01:*all);
-    dcl-ds foot01DS likerec(FOOT01:*output);
+        readc SFL01 sfl01DS;
+        dow not %eof(orderdisp);
+            if sfl01DS.USEROPT = '2';
+                editOrder(sfl01DS.ORDERID);
+            endif;
+            readc SFL01 sfl01DS;
+        enddo;
+        loadSubfile();        
+    enddo;
+    return;
+end-proc;
 
+dcl-proc loadSubfile;
+    
+    dcl-ds foot01DS likerec(FOOT01:*output);    
     dcl-ds ordersDS likerec(ORDERSF);
+
+    RRN01 = 0;
 
     // This refers to the indicators in the display file, you will notice the clear
     // requires that the 30 indicator be on. So this
@@ -48,27 +70,8 @@ dcl-proc mainProc;
     // Subfile display control comes on either way
     ctl01DS.in32 = *on;
     write FOOT01 foot01DS;
-
-    // The actual running of the program
-    dou ctl01DS.in03 = *on;
-        exfmt CTL01 ctl01DS;
-
-        readc SFL01 sfl01DS;
-        dow not %eof(orderdisp);
-            if sfl01DS.USEROPT = '2';
-                editOrder(sfl01DS.ORDERID);
-            endif;
-            readc SFL01 sfl01DS;
-        enddo;
-
-        
-    enddo;
-
-
-    return;
 end-proc;
 
-// TODO: Want to use sql in this 
 dcl-proc editOrder;
     dcl-pi *n;
         orderNum char(5);
@@ -107,6 +110,8 @@ dcl-proc editOrder;
             // if sqlcode <> 0;
             // dsply ('SQL Error:' + %char(sqlcode));
             // endif;
+
+            return;
         endif;
     enddo;
 
